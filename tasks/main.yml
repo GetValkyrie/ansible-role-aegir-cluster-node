@@ -46,3 +46,5 @@
     content: "{{ aegir_cluster_node_user }} ALL=NOPASSWD: /usr/sbin/apache2ctl\n{{ aegir_cluster_node_user }} ALL=NOPASSWD: /etc/init.d/nginx\n\n"
     mode: 0440
 
+- include: grant-ssh-access.yml
+  when: aegir_cluster_node_grant_ssh_access

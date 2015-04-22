@@ -1,0 +1,28 @@
+- name: Fail if no master server is defined
+  assert:
+    that: aegir_cluster_node_master_server != false
+    msg: 'Aegir cluster nodes must grant SSH access to a master server. No
+    master server was defined. To specify a master server, set the following
+    variable to the hostname of the master server:
+
+
+....... aegir_cluster_node_master_server: aegir.example.com
+
+If you are planning to handle setting up SSH access separately, then set the
+following variable to skip this configuration:
+
+
+....... aegir_cluster_node_grant_ssh_access: false
+
+'
+
+- name: Fetch public key from master server
+  command: "cat {{ aegir_cluster_node_root }}/.ssh/id_rsa.pub"
+  delegate_to: "{{ aegir_cluster_node_master_server }}"
+  register: master_public_key
+  changed_when: false
+
+- name: Grant SSH access from master server
+  authorized_key:
+    user: "{{ aegir_cluster_node_user }}"
+    key: "{{ master_public_key.stdout }}"
