@@ -1,9 +1,9 @@
 ---
-aegir_root: /var/aegir
-aegir_user: aegir
-aegir_web_group: www-data
-aegir_manage_dependencies: true
-aegir_dependencies:
+aegir_cluster_node_root: /var/aegir
+aegir_cluster_node_user: aegir
+aegir_cluster_node_web_group: www-data
+aegir_cluster_node_manage_dependencies: true
+aegir_cluster_node_dependencies:
   - apache2
   - php5
   - php5-cli
@@ -15,7 +15,9 @@ aegir_dependencies:
   - git
   - unzip
   - mysql-client
-aegir_install_additional_packages: true
-aegir_additional_packages:
+aegir_cluster_node_install_additional_packages: true
+aegir_cluster_node_additional_packages:
   - php5-curl
-aegir_http_service_type: 'apache'
+aegir_cluster_node_http_service_type: 'apache'
+aegir_cluster_node_grant_ssh_access: true
+aegir_cluster_node_master_server: false

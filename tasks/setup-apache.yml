@@ -6,7 +6,7 @@
   file:
     state: link
     path: /etc/apache2/conf-available/aegir.conf
-    src: "{{ aegir_root }}/config/apache.conf"
+    src: "{{ aegir_cluster_node_root }}/config/apache.conf"
     force: yes  # the target doesn't exist yet
   when: >
     ((ansible_distribution == "Ubuntu") and (ansible_distribution_version|int >= 13.10)) or
@@ -25,7 +25,7 @@
   file:
     state: link
     path: /etc/apache2/conf.d/aegir.conf
-    src: "{{ aegir_root }}/config/apache.conf"
+    src: "{{ aegir_cluster_node_root }}/config/apache.conf"
     force: yes  # the target doesn't exist yet
   when: >
     ((ansible_distribution == "Ubuntu") and (ansible_distribution_version|int < 13.10)) or
