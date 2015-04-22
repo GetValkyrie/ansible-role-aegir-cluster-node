@@ -21,3 +21,4 @@ aegir_cluster_node_additional_packages:
 aegir_cluster_node_http_service_type: 'apache'
 aegir_cluster_node_grant_ssh_access: true
 aegir_cluster_node_master_server: false
+aegir_cluster_node_provide_empty_apache_config: false

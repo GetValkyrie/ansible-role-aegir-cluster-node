@@ -4,5 +4,6 @@
   vars:
     # Until we can test with multiple VMs, let's skip the SSH key exchange.
     - aegir_cluster_node_grant_ssh_access: false
+    - aegir_cluster_node_provide_empty_apache_config: true
   roles:
     - ansible-role-aegir-cluster-node

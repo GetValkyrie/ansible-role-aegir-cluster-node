@@ -30,3 +30,8 @@
   when: >
     ((ansible_distribution == "Ubuntu") and (ansible_distribution_version|int < 13.10)) or
     ((ansible_distribution == "Debian") and (ansible_distribution_version|int < 7))
+
+- name: Provide empty Apache config, to allow Apache to restart
+  shell: "mkdir -p {{ aegir_cluster_node_root }}/config && touch {{ aegir_cluster_node_root }}/config/apache.conf"
+  changed_when: false
+  when: aegir_cluster_node_provide_empty_apache_config
