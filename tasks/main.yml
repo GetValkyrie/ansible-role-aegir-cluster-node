@@ -30,7 +30,7 @@
 # Ref.: http://community.aegirproject.org/installing/manual#Install_provision
 - name: Create 'aegir' user home.
   file:
-    path: /var/aegir/
+    path: "{{ aegir_cluster_node_root }}"
     state: directory
     owner: "{{ aegir_cluster_node_user }}"
     group: "{{ aegir_cluster_node_user }}"
