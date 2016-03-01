@@ -19,6 +19,7 @@ following variable to skip this configuration:
 - name: Fetch public key from master server
   command: "cat {{ aegir_cluster_node_root }}/.ssh/id_rsa.pub"
   delegate_to: "{{ aegir_cluster_node_master_server }}"
+  run_once: yes
   register: master_public_key
   changed_when: false
 
@@ -26,3 +27,44 @@ following variable to skip this configuration:
   authorized_key:
     user: "{{ aegir_cluster_node_user }}"
     key: "{{ master_public_key.stdout }}"
+
+#- name: Create master's known_hosts file
+#  copy:
+#    dest: "{{ aegir_cluster_node_root }}/.ssh/known_hosts"
+#    content: ''
+##    force: no
+#    mode: 0600
+#    owner: "{{ aegir_cluster_node_user }}"
+#    group: "{{ aegir_cluster_node_user }}"
+#  run_once: yes
+#  delegate_to: "{{ aegir_cluster_node_master_server }}"
+#  changed_when: false
+
+#- name: Gather ssh public keys from cluster nodes
+#  shell: "ssh-keyscan -t rsa -H {{ ansible_fqdn }} >> {{ aegir_cluster_node_root }}/.ssh/known_hosts"
+#  register: ssh_known_hosts
+#  delay: 3
+#  changed_when: false
+#  delegate_to: "{{ aegir_cluster_node_master_server }}"
+
+#- name: Add cluster node public keys to master's known_hosts
+  #lineinfile:
+#  known_hosts:
+#    path: "{{ aegir_cluster_node_root }}/.ssh/known_hosts"
+#    host: "{{ ansible_fqdn }}"
+#    key: "{{ ssh_known_hosts.stdout }}"
+    #dest: "{{ aegir_cluster_node_root }}/.ssh/known_hosts"
+    #regexp: "{{ ssh_known_hosts.stdout }}"
+    #line: "{{ ssh_known_hosts.stdout }}"
+#  when: ssh_known_hosts.rc == 0
+#  delegate_to: "{{ aegir_cluster_node_master_server }}"
+  # TODO: figure out proper regex to make lineinfile idempotent
+  #changed_when: false
+
+#- name: Register cluster nodes with master server
+#  shell: drush provision-save ... 
+#  delegate_to: "{{ aegir_cluster_node_master_server }}"
+
+#- name: Register cluster nodes with master server
+#  shell: drush @hostmaster hosting-import ...
+#  delegate_to: "{{ aegir_cluster_node_master_server }}"
